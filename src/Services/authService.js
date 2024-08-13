@@ -17,14 +17,22 @@ const authService = {
     return response.data;
   },
 
-  logout: () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('userRole');
+  logout: async () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    try {
+      const response = await axios.post('https://tlbc-platform-api.onrender.com/api/logout/', { refresh: refreshToken });
+      if (response.data.detail === "Successfully logged out.") {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('firstName');
+        localStorage.removeItem('userRole');
     // Remove the default authorization header
     delete axios.defaults.headers.common['Authorization'];
-  },
+  }
+} catch (error) {
+  console.error('Logout error:', error);
+}
+},
 
   getUserInfo: async () => {
     const response = await axios.get(`${API_URL}/user/`);

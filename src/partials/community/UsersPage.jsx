@@ -171,7 +171,7 @@ const UsersPage = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <button type="submit" className="bg-purple-600 text-white p-2 rounded-r-md">
-            <Search size={22} />
+            <Search size={22} /> Search
           </button>
         </div>
       </form>

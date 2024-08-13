@@ -274,13 +274,14 @@ const Register = () => {
                 </span>
               </div>
               <div>
-              {/* <label htmlFor="birth_date" className="text-gray-900">Date of Birth</label> */}
+               <label htmlFor="birth_date" className="text-gray-900">Date of Birth</label> 
                 <input
                   type="date"
                   name="birth_date"
                   onChange={handleInputChange}
                   value={formData.birth_date}
-                  className="w-full text-gray-900 px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  placeholder="enter date"
+                  className="w-full text-gray-900 px-3 py-2 text-black text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
                 />
                 <span className="text-red-500 text-xs">
                   {errors.birth_date}

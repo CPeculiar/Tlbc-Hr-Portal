@@ -11,8 +11,6 @@ import DashboardCard04 from '../partials/dashboard/DashboardCard04';
 import DashboardCard05 from '../partials/dashboard/DashboardCard05';
 import DashboardCard06 from '../partials/dashboard/DashboardCard06';
 import DashboardCard07 from '../partials/dashboard/DashboardCard07';
-import DashboardCard08 from '../partials/dashboard/DashboardCard08';
-import DashboardCard09 from '../partials/dashboard/DashboardCard09';
 import DashboardCard10 from '../partials/dashboard/DashboardCard10';
 import DashboardCard11 from '../partials/dashboard/DashboardCard11';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
@@ -66,30 +64,25 @@ function Dashboard() {
             {/* Cards */}
             <div className="grid grid-cols-12 gap-6">
 
-              {/* Line chart (Acme Plus) */}
+              {/* Line chart (Top Users) */}
               <DashboardCard01 />
-              {/* Line chart (Acme Advanced) */}
+              {/* Line chart (Zones) */}
               <DashboardCard02 />
-              {/* Line chart (Acme Professional) */}
+              {/* Line chart (Departments) */}
               <DashboardCard03 />
-              {/* Bar chart (Direct vs Indirect) */}
+              {/* Bar chart (Financial Chart) */}
               <DashboardCard04 />
-              {/* Line chart (Real Time Value) */}
+              {/* Line chart (Cummulative Cash Inflow) */}
               <DashboardCard05 />
-              {/* Doughnut chart (Top Countries) */}
+              {/* Doughnut chart (Attendance Chart) */}
               <DashboardCard06 />
-              {/* Table (Top Channels) */}
+              {/* Table (Top Users) */}
               <DashboardCard07 />
-              {/* Line chart (Sales Over Time) */}
-              <DashboardCard08 />
-              {/* Stacked bar chart (Sales VS Refunds) */}
-              <DashboardCard09 />
-              {/* Card (Customers) */}
+             
+              {/* Card (Birthdays) */}
               <DashboardCard10 />
-              {/* Card (Reasons for Refunds) */}
-              <DashboardCard11 />
-              {/* Card (Recent Activity) */}
-              <DashboardCard12 />
+              
+             
               {/* Card (Income/Expenses) */}
               <DashboardCard13 />
               

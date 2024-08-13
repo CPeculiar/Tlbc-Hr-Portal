@@ -12,49 +12,49 @@ function DashboardCard10() {
     {
       id: '0',
       image: Image01,
-      name: 'Alex Shatov',
-      email: 'alexshatov@gmail.com',
-      location: '🇺🇸',
-      spent: '$2,890.66',
+      name: 'Michelle Okonkwo',
+      phone: '09013550819',
+      dob: 'Aug 18',
+      church: 'TLBC Awka',
     },
     {
       id: '1',
       image: Image02,
-      name: 'Philip Harbach',
-      email: 'philip.h@gmail.com',
-      location: '🇩🇪',
-      spent: '$2,767.04',
+      name: 'Collins Nwokozor ',
+      phone: '08130543765',
+      dob: 'Aug25',
+      church: 'TLBC Awka',
     },
     {
       id: '2',
       image: Image03,
-      name: 'Mirko Fisuk',
-      email: 'mirkofisuk@gmail.com',
-      location: '🇫🇷',
-      spent: '$2,996.00',
+      name: 'Michael Mmaduburum',
+      phone: '09021098669',
+      dob: 'Sept 14',
+      church: 'TLBC Ihiala',
     },
     {
       id: '3',
       image: Image04,
-      name: 'Olga Semklo',
-      email: 'olga.s@cool.design',
-      location: '🇮🇹',
-      spent: '$1,220.66',
+      name: 'Amaka Aham',
+     phone: '09067493068',
+      dob: 'Sept 24',
+      church: 'TLBC Awka',
     },
     {
       id: '4',
       image: Image05,
-      name: 'Burak Long',
-      email: 'longburak@gmail.com',
-      location: '🇬🇧',
-      spent: '$1,890.66',
+      name: 'Mmesoma Azegba',
+      phone: '08105606440',
+      dob: 'Sept 30',
+      church: 'TLBC Ekwulobia',
     },
   ];
 
   return (
     <div className="col-span-full xl:col-span-6 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
       <header className="px-5 py-4 border-b border-gray-100 dark:border-gray-700/60">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Customers</h2>
+        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Upcoming Birthdays</h2>
       </header>      
       <div className="p-3">
 
@@ -68,13 +68,13 @@ function DashboardCard10() {
                   <div className="font-semibold text-left">Name</div>
                 </th>
                 <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Email</div>
+                  <div className="font-semibold text-left">Phone</div>
                 </th>
                 <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Spent</div>
+                  <div className="font-semibold text-left">Church</div>
                 </th>
                 <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">Country</div>
+                  <div className="font-semibold text-center">Dob</div>
                 </th>
               </tr>
             </thead>
@@ -93,13 +93,13 @@ function DashboardCard10() {
                         </div>
                       </td>
                       <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{customer.email}</div>
+                        <div className="text-left">{customer.phone}</div>
                       </td>
                       <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">{customer.spent}</div>
+                        <div className="text-left font-medium text-green-500">{customer.church}</div>
                       </td>
                       <td className="p-2 whitespace-nowrap">
-                        <div className="text-lg text-center">{customer.location}</div>
+                        <div className="text-sm text-center">{customer.dob}</div>
                       </td>
                     </tr>
                   )

@@ -1,17 +1,40 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
-
+import authService from '../Services/authService';
+import axios from 'axios';
 import UserAvatar from '../images/user-avatar-32.png';
+
 
 function DropdownProfile({
   align
 }) {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  
+  const navigate = useNavigate();
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  const handleLogout = async () => {
+    await authService.logout();
+    setDropdownOpen(false);
+    navigate('/login'); // Redirect to login page after logout
+  };
+
+  // Fetch profile data on "View Profile" click
+  const handleViewProfile = async () => {
+    try {
+      const response = await axios.get('https://tlbc-platform-api.onrender.com/api/user/');
+      const profileData = response.data;
+
+      // Pass the profile data to the UserProfile page using state
+      navigate('/profile', { state: { profileData } });
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+    }
+  };
+
 
   // close on click outside
   useEffect(() => {
@@ -86,8 +109,8 @@ function DropdownProfile({
           <li>
               <Link
                 className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
-                to="/profile"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                // to="/profile"
+                onClick={handleViewProfile}
               >
                 View Profile
               </Link>
@@ -105,7 +128,8 @@ function DropdownProfile({
               <Link
                 className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
                 to="/logout"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                // onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={handleLogout}
               >
                 Log out
               </Link>
