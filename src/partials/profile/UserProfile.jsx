@@ -67,8 +67,8 @@ const ProfileSettings = () => {
         <div className="flex items-center mb-4">
           <img src={Image} alt="Profile" className="w-24 h-24 rounded-full mr-4" />
           <div>
-            <h3 className="text-xl font-bold">Edogaru</h3>
-            <p>edogaru@mail.com.my</p>
+            <h3 className="text-xl font-bold">Reuben Faruna</h3>
+            <p>Reuben@gmail.com</p>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
