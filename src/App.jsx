@@ -4,9 +4,7 @@ import {
   Route,
   useLocation
 } from 'react-router-dom';
-
 import './css/style.css';
-
 import './charts/ChartjsConfig';
 
 // Import pages
@@ -18,9 +16,10 @@ import DashboardCharts from './partials/dashboard/DashboardCharts';
 import Transactions from './partials/finance/Transactions'
 import UsersPage from './partials/community/UsersPage';
 import UserProfile from './partials/profile/UserProfile'
-import Logout from './pages/Auth/Logout';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import ChangePassword from './pages/Auth/ChangePassword';
+import ProtectedRoute from './pages/Auth/ProtectedRoute';
+import UserTable from './partials/community/UserTable';
 
 function App() {
 
@@ -35,24 +34,87 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/dashboard" element={<Dashboard />} />
         
-        <Route exact path="/login" element={<Login />} />
+        
+       
         <Route exact path="/" element={<Login />} />
+        <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
-        <Route exact path="*" element={<NotFound />} />
-
-
-        <Route exact path="/charts" element={<DashboardCharts />} />
-        <Route exact path="/userspage" element={<UsersPage />} />
-        <Route exact path="/transactions" element={<Transactions />} />
-        <Route exact path="/profile" element={<UserProfile />} />
-        <Route exact path="/logout" element={<Logout />} />
         <Route exact path="/forgotpassword" element={<ForgotPassword />} />
-        <Route exact path="/changepassword" element={<ChangePassword />} />
+        
+        <Route exact path="*" element={<NotFound />} />
+        <Route exact path="/charts" element={<DashboardCharts />} />
+
+
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
+         <Route 
+          path="/" 
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
+
+<Route 
+          path="/userspage" 
+          element={
+            <ProtectedRoute>
+              <UsersPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/changepassword" 
+          element={
+            <ProtectedRoute>
+              <ChangePassword />
+            </ProtectedRoute>
+          } 
+        />
+         <Route 
+          path="/profile" 
+          element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          } 
+        />
+         <Route 
+          path="/transactions" 
+          element={
+            <ProtectedRoute>
+              <Transactions />
+            </ProtectedRoute>
+          } 
+        />
+            <Route 
+          path="/usertable" 
+          element={
+            <ProtectedRoute>
+              <UserTable />
+            </ProtectedRoute>
+          } 
+        />
+        
       </Routes>
     </>
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+             

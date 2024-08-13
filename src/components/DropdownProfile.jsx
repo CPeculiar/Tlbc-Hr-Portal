@@ -16,10 +16,11 @@ function DropdownProfile({
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
-  const handleLogout = async () => {
-    await authService.logout();
-    setDropdownOpen(false);
-    navigate('/login'); // Redirect to login page after logout
+  const handleLogout = () => {
+    authService.logout().then(() => {
+      setDropdownOpen(false);
+      navigate('/login');
+    });
   };
 
   // Fetch profile data on "View Profile" click
@@ -127,7 +128,7 @@ function DropdownProfile({
             <li>
               <Link
                 className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
-                to="/logout"
+                // to="/logout"
                 // onClick={() => setDropdownOpen(!dropdownOpen)}
                 onClick={handleLogout}
               >

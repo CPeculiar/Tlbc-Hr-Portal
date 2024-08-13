@@ -177,13 +177,20 @@ const UsersPage = () => {
       </form>
 
       {/* Advanced Search Toggle */}
+      <div className='flex justify-between'>
       <button
         onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
         className="bg-purple-600 text-white px-4 py-2 rounded-md mb-4"
       >
         {showAdvancedSearch ? 'Hide Advanced Search' : 'Advanced Search'}
       </button>
-
+      <button
+        onClick={() => navigate('/usertable')}
+        className="bg-purple-600 text-white px-4 py-2 rounded-md mb-4"
+      >
+        Get all Users info
+      </button>
+</div>
       {/* Advanced Search Form */}
       {showAdvancedSearch && (
         <form onSubmit={handleAdvancedSearch} className="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -219,7 +226,7 @@ const UsersPage = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Phone</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Gender</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Zone</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Email</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -238,7 +245,7 @@ const UsersPage = () => {
                     <div className="text-sm text-gray-500 dark:text-gray-300">{user.gender}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500 dark:text-gray-300">{user.zone}</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-300">{user.email}</div>
                   </td>
                 </tr>
               ))}
