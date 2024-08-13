@@ -44,15 +44,15 @@ function DropdownNotifications({
         <span className="sr-only">Notifications</span>
         <svg
           className="fill-current text-gray-500/80 dark:text-gray-400/80"
-          width={16}
-          height={16}
-          viewBox="0 0 16 16"
+          width={20}
+          height={20}
+          viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M7 0a7 7 0 0 0-7 7c0 1.202.308 2.33.84 3.316l-.789 2.368a1 1 0 0 0 1.265 1.265l2.595-.865a1 1 0 0 0-.632-1.898l-.698.233.3-.9a1 1 0 0 0-.104-.85A4.97 4.97 0 0 1 2 7a5 5 0 0 1 5-5 4.99 4.99 0 0 1 4.093 2.135 1 1 0 1 0 1.638-1.148A6.99 6.99 0 0 0 7 0Z" />
-          <path d="M11 6a5 5 0 0 0 0 10c.807 0 1.567-.194 2.24-.533l1.444.482a1 1 0 0 0 1.265-1.265l-.482-1.444A4.962 4.962 0 0 0 16 11a5 5 0 0 0-5-5Zm-3 5a3 3 0 0 1 6 0c0 .588-.171 1.134-.466 1.6a1 1 0 0 0-.115.82 1 1 0 0 0-.82.114A2.973 2.973 0 0 1 11 14a3 3 0 0 1-3-3Z" />
+          <path d="M12 2C10.067 2 8.5 3.567 8.5 5.5V6c-2.485 0-4.5 2.015-4.5 4.5v4.5l-2 2V18h19v-.5l-2-2V10.5c0-2.485-2.015-4.5-4.5-4.5V5.5C15.5 3.567 13.933 2 12 2zm0 18c-1.104 0-2-.896-2-2h4c0 1.104-.896 2-2 2z" />
         </svg>
-        <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 border-2 border-gray-100 dark:border-gray-900 rounded-full"></div>
+        {/* Unread notification badge */}
+        <div className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></div>
       </button>
 
       <Transition
@@ -78,7 +78,7 @@ function DropdownNotifications({
                 to="#0"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                <span className="block text-sm mb-2">📣 <span className="font-medium text-gray-800 dark:text-gray-100">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
+                <span className="block text-sm mb-2">📣 <span className="font-medium text-gray-800 dark:text-gray-100">Incomplete Profile information</span> Complete the different information sections in your profile.</span>
                 <span className="block text-xs font-medium text-gray-400 dark:text-gray-500">Feb 12, 2024</span>
               </Link>
             </li>
@@ -88,8 +88,9 @@ function DropdownNotifications({
                 to="#0"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                <span className="block text-sm mb-2">📣 <span className="font-medium text-gray-800 dark:text-gray-100">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-gray-400 dark:text-gray-500">Feb 9, 2024</span>
+              <span className="block text-sm mb-2">🚀<span className="font-medium text-gray-800 dark:text-gray-100">Yet to register for TLBC'24!</span> <br/>You are yet to register for TLBC'24. Do so now.</span>
+              <span className="block text-xs font-medium text-gray-400 dark:text-gray-500">Jan 24, 2024</span>
+               
               </Link>
             </li>
             <li className="border-b border-gray-200 dark:border-gray-700/60 last:border-0">
@@ -98,8 +99,8 @@ function DropdownNotifications({
                 to="#0"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                <span className="block text-sm mb-2">🚀<span className="font-medium text-gray-800 dark:text-gray-100">Say goodbye to paper receipts!</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-gray-400 dark:text-gray-500">Jan 24, 2024</span>
+                <span className="block text-sm mb-2">📣 <span className="font-medium text-gray-800 dark:text-gray-100">Late submission of your Report</span> <br/>You are already behind deadline in the submission of your report.</span>
+                <span className="block text-xs font-medium text-gray-400 dark:text-gray-500">Feb 9, 2024</span> 
               </Link>
             </li>
           </ul>

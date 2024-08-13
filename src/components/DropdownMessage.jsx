@@ -41,20 +41,19 @@ function DropdownHelp({
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
       >
-        <span className="sr-only">Need help?</span>
+         <span className="sr-only">Messages</span>
+        {/* Message Icon */}
         <svg
-          className="fill-current text-gray-500/80 dark:text-gray-400/80"
-          width={16}
-          height={16}
-          viewBox="0 0 16 16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M9 7.5a1 1 0 1 0-2 0v4a1 1 0 1 0 2 0v-4ZM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
-          <path
-            fillRule="evenodd"
-            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm6-8A6 6 0 1 1 2 8a6 6 0 0 1 12 0Z"
-          />
-        </svg>
+  className="fill-current text-gray-500/80 dark:text-gray-400/80"
+  width={20}
+  height={20}
+  viewBox="0 0 20 20"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm13.85 0H4.15L10 8.25 15.85 4zm-.7 2.15L10 10.25 4.85 6.15 4 6.85l6 4.5 6-4.5-.85-.7z" />
+</svg>
+        {/* Unread notification badge */}
+        <div className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></div>
       </button>
 
       <Transition
@@ -72,7 +71,7 @@ function DropdownHelp({
           onFocus={() => setDropdownOpen(true)}
           onBlur={() => setDropdownOpen(false)}
         >
-          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase pt-1.5 pb-2 px-3">Need help?</div>
+          <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase pt-1.5 pb-2 px-3">Messages</div>
           <ul>
             <li>
               <Link
@@ -84,7 +83,7 @@ function DropdownHelp({
                   <rect y="3" width="12" height="9" rx="1" />
                   <path d="M2 0h8v2H2z" />
                 </svg>
-                <span>Documentation</span>
+                <span>Inbox</span>
               </Link>
             </li>
             <li>
@@ -96,7 +95,7 @@ function DropdownHelp({
                 <svg className="w-3 h-3 fill-current text-violet-500 shrink-0 mr-2" viewBox="0 0 12 12">
                   <path d="M10.5 0h-9A1.5 1.5 0 000 1.5v9A1.5 1.5 0 001.5 12h9a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0010.5 0zM10 7L8.207 5.207l-3 3-1.414-1.414 3-3L5 2h5v5z" />
                 </svg>
-                <span>Support Site</span>
+                <span>Sent</span>
               </Link>
             </li>
             <li>
@@ -108,7 +107,7 @@ function DropdownHelp({
                 <svg className="w-3 h-3 fill-current text-violet-500 shrink-0 mr-2" viewBox="0 0 12 12">
                   <path d="M11.854.146a.5.5 0 00-.525-.116l-11 4a.5.5 0 00-.015.934l4.8 1.921 1.921 4.8A.5.5 0 007.5 12h.008a.5.5 0 00.462-.329l4-11a.5.5 0 00-.116-.525z" />
                 </svg>
-                <span>Contact us</span>
+                <span>Trash</span>
               </Link>
             </li>
           </ul>
