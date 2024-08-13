@@ -100,7 +100,7 @@ function DropdownFilter({ align }) {
                   className="form-checkbox"
                 />
                 <span className="text-sm font-medium ml-2">
-                  Direct VS Indirect
+                  Members Profile
                 </span>
               </label>
             </li>
@@ -112,7 +112,7 @@ function DropdownFilter({ align }) {
                   className="form-checkbox"
                 />
                 <span className="text-sm font-medium ml-2">
-                  Real Time Value
+                  Attendance Record
                 </span>
               </label>
             </li>
@@ -123,7 +123,7 @@ function DropdownFilter({ align }) {
                   type="checkbox"
                   className="form-checkbox"
                 />
-                <span className="text-sm font-medium ml-2">Top Channels</span>
+                <span className="text-sm font-medium ml-2">Financial Record</span>
               </label>
             </li>
             <li className="py-1 px-3">
@@ -134,7 +134,7 @@ function DropdownFilter({ align }) {
                   className="form-checkbox"
                 />
                 <span className="text-sm font-medium ml-2">
-                  Sales VS Refunds
+                Messages
                 </span>
               </label>
             </li>
@@ -145,7 +145,7 @@ function DropdownFilter({ align }) {
                   type="checkbox"
                   className="form-checkbox"
                 />
-                <span className="text-sm font-medium ml-2">Last Order</span>
+                <span className="text-sm font-medium ml-2">Upcoming events</span>
               </label>
             </li>
             <li className="py-1 px-3">
@@ -155,7 +155,7 @@ function DropdownFilter({ align }) {
                   type="checkbox"
                   className="form-checkbox"
                 />
-                <span className="text-sm font-medium ml-2">Total Spent</span>
+                <span className="text-sm font-medium ml-2">Reports</span>
               </label>
             </li>
           </ul>
