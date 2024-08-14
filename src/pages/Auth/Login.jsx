@@ -6,7 +6,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/24/solid";
 import Logo from "../../assets/images/TLBC_LOGO_removebg.png";
 
-const Login = ({ onForgotPassword }) => {
+const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState("");
@@ -15,6 +15,10 @@ const Login = ({ onForgotPassword }) => {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onForgotPassword = () => {
+    navigate("/forgotpassword");
   };
 
   const validateForm = (data) => {
@@ -81,7 +85,10 @@ const Login = ({ onForgotPassword }) => {
           <div className="space-y-4">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <UserIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                <UserIcon
+                  className="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
               </div>
               <input
                 id="username"
@@ -94,11 +101,16 @@ const Login = ({ onForgotPassword }) => {
                 placeholder="Enter your username"
               />
             </div>
-            {error.username && <p className="text-red-500 text-xs mt-1">{error.username}</p>}
+            {error.username && (
+              <p className="text-red-500 text-xs mt-1">{error.username}</p>
+            )}
 
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <LockClosedIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                <LockClosedIcon
+                  className="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
               </div>
               <input
                 type={passwordVisible ? "text" : "password"}
@@ -121,7 +133,9 @@ const Login = ({ onForgotPassword }) => {
                 />
               </button>
             </div>
-            {error.password && <p className="text-red-500 text-xs mt-1">{error.password}</p>}
+            {error.password && (
+              <p className="text-red-500 text-xs mt-1">{error.password}</p>
+            )}
           </div>
 
           <div className="flex items-center justify-between">
@@ -132,7 +146,10 @@ const Login = ({ onForgotPassword }) => {
                 type="checkbox"
                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-900"
+              >
                 Remember me
               </label>
             </div>
@@ -152,17 +169,23 @@ const Login = ({ onForgotPassword }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
-            >
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white transition duration-150 ease-in-out 
+  ${isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  }`}>
               {isLoading ? "Logging in..." : "Login"}
             </button>
-            {error && <p className="mt-2 text-center text-sm text-red-600">{error}</p>}
+            {error && (
+              <p className="mt-2 text-center text-sm text-red-600">{error}</p>
+            )}
           </div>
         </form>
 
         <p className="mt-2 text-center text-sm text-gray-600">
           New to our platform?{" "}
-          <a href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+          <a
+            href="/register"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+          >
             Create an account
           </a>
         </p>
@@ -170,7 +193,5 @@ const Login = ({ onForgotPassword }) => {
     </div>
   );
 };
-
-
 
 export default Login;

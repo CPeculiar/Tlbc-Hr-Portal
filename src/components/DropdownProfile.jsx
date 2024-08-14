@@ -26,7 +26,9 @@ function DropdownProfile({
   // Fetch profile data on "View Profile" click
   const handleViewProfile = async () => {
     try {
-      const response = await axios.get('https://tlbc-platform-api.onrender.com/api/user/');
+      const response = await axios.get(`https://tlbc-platform-api.onrender.com/api/user/`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       const profileData = response.data;
 
       // Pass the profile data to the UserProfile page using state

@@ -21,7 +21,7 @@ const authService = {
     const refreshToken = localStorage.getItem('refreshToken');
     try {
       const response = await axios.post(`${API_URL}/logout/`, { refresh: refreshToken });
-      if (response.data.detail === "Successfully logged out.") {
+      if (response.data.detail === "Successfully logged out." || response.status === 200) {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('firstName');

@@ -18,7 +18,7 @@ const ChangePassword = () => {
     if (newPassword !== confirmPassword) {
       setMessage('New Password and Confirm Password do not match.');
       return;
-    }
+    }  
 
     try {
       const accessToken = localStorage.getItem('accessToken');
@@ -31,7 +31,7 @@ const ChangePassword = () => {
 
       const response = await axios.post('https://tlbc-platform-api.onrender.com/api/password/change/', {
         old_password: oldPassword,
-        new_password: newPassword,
+        new_password: newPassword, f 
       },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -70,7 +70,10 @@ const ChangePassword = () => {
           />
           <button
               type="button"
-              onClick={() => setShowOldPassword(!showOldPassword)}
+              onClick={() => {
+                setShowOldPassword(!showOldPassword);
+                setMessage(''); // Clear the error message
+              }}
               className="absolute right-3 top-2 text-gray-600"
             >
               {showOldPassword ? <FaEyeSlash /> : <FaEye />}
@@ -84,7 +87,10 @@ const ChangePassword = () => {
             type={showNewPassword ? 'text' : 'password'}
             id="new-password"
             value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={(e) => { 
+              setNewPassword(e.target.value);
+              setMessage(''); // Clear the error message
+               }}
             className="w-full px-3 py-2 border rounded-md"
             required
           />
@@ -104,7 +110,10 @@ const ChangePassword = () => {
               type={showConfirmPassword ? 'text' : 'password'}
               id="confirm-password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => { 
+                setConfirmPassword(e.target.value);
+                setMessage(''); // Clear the error message
+                }}
               className="w-full px-3 py-2 border rounded-md"
               required
             />
