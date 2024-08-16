@@ -15,10 +15,8 @@ const Register = () => {
     email: "",
     username: "",
     password: "",
-    birth_date: "",
     gender: "",
-    phone_number: "",
-    zone: "",
+    phone_number: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -319,7 +317,7 @@ const Register = () => {
                 </select>
                 <span className="text-red-500 text-xs">{errors.zone}</span>
               </div>
-            </div>
+            </div> 
 
             <div className="mb-4">
                   <div className="form-check">

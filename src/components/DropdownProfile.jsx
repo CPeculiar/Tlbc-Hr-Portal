@@ -6,15 +6,27 @@ import axios from 'axios';
 import UserAvatar from '../images/user-avatar-32.png';
 
 
-function DropdownProfile({
-  align
-}) {
-
+function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  
+  const [userInfo, setUserInfo] = useState({});
+
   const navigate = useNavigate();
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const info = await authService.getUserInfo();
+        setUserInfo(info);
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+      }
+    };
+    fetchUserInfo();
+  }, []);
+
+
 
   const handleLogout = () => {
     authService.logout().then(() => {
@@ -23,20 +35,34 @@ function DropdownProfile({
     });
   };
 
+
+  const handleViewProfile = () => {
+    setDropdownOpen(false);
+    navigate('/profile');
+  };
+
+  const getNamePrefix = () => {
+    const pastorNames = ['Name1', 'Name2', /* ... add all 12 names */];
+    if (pastorNames.includes(userInfo.first_name)) return 'Pastor';
+    return userInfo.gender === 'Male' ? 'Bro' : 'Sis';
+  };
+
+  const displayName = `${getNamePrefix()} ${userInfo.first_name || ''}`;
+
   // Fetch profile data on "View Profile" click
-  const handleViewProfile = async () => {
-    try {
-      const response = await axios.get(`https://tlbc-platform-api.onrender.com/api/user/`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      const profileData = response.data;
+  // const handleViewProfile = async () => {
+  //   try {
+  //     const response = await axios.get(`https://tlbc-platform-api.onrender.com/api/user/`, {
+  //       headers: { Authorization: `Bearer ${accessToken}` },
+  //     });
+  //     const profileData = response.data;
 
       // Pass the profile data to the UserProfile page using state
-      navigate('/profile', { state: { profileData } });
-    } catch (error) {
-      console.error('Error fetching profile data:', error);
-    }
-  };
+  //     navigate('/profile', { state: { profileData } });
+  //   } catch (error) {
+  //     console.error('Error fetching profile data:', error);
+  //   }
+  // };
 
 
   // close on click outside
@@ -105,14 +131,14 @@ function DropdownProfile({
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-gray-200 dark:border-gray-700/60">
-            <div className="font-medium text-gray-800 dark:text-gray-100">Pst. Eloka Okeke</div>
-            <div className="text-sm text-gray-500 dark:text-gray-400 italic">Super Admin</div>
+            <div className="font-medium text-gray-800 dark:text-gray-100">{displayName}</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400 italic">{userInfo.role}</div>
           </div>
           <ul>
           <li>
               <Link
                 className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
-                // to="/profile"
+                to="/profile"
                 onClick={handleViewProfile}
               >
                 View Profile

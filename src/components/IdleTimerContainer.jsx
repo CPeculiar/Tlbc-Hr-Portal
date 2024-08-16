@@ -91,7 +91,7 @@ const IdleTimerContainer = ({ children }) => {
     <>
       {children}
       {isIdle && countdownStarted && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-8 md:p-12 rounded-lg shadow-2xl w-3/4 md:w-1/2 lg:w-1/3">
             <h2 className="text-2xl md:text-3xl text-center font-bold mb-6">You've been idle</h2>
             <p className="mb-6 text-lg md:text-xl">You will be logged out in {remainingTime} seconds.</p>
