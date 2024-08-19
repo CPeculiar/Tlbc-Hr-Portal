@@ -22,9 +22,9 @@ function DashboardCard13() {
               </div>
               <div className="grow flex items-center border-b border-gray-100 dark:border-gray-700/60 text-sm py-2">
                 <div className="grow flex justify-between">
-                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">Qonto</a> billing</div>
+                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">Fueling</a></div>
                   <div className="shrink-0 self-start ml-2">
-                    <span className="font-medium text-gray-800 dark:text-gray-100">-$49.88</span>
+                    <span className="font-medium text-gray-800 dark:text-gray-100">-₦2,649</span>
                   </div>
                 </div>
               </div>
@@ -38,9 +38,9 @@ function DashboardCard13() {
               </div>
               <div className="grow flex items-center border-b border-gray-100 dark:border-gray-700/60 text-sm py-2">
                 <div className="grow flex justify-between">
-                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">Cruip.com</a> Market Ltd 70 Wilson St London</div>
+                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">Stewardship</a> from Bro Chidiebere Chukwuemeka </div>
                   <div className="shrink-0 self-start ml-2">
-                    <span className="font-medium text-green-600">+249.88</span>
+                    <span className="font-medium text-green-600">+₦5,000</span>
                   </div>
                 </div>
               </div>
@@ -54,9 +54,9 @@ function DashboardCard13() {
               </div>
               <div className="grow flex items-center border-b border-gray-100 dark:border-gray-700/60 text-sm py-2">
                 <div className="grow flex justify-between">
-                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">Notion Labs Inc</a></div>
+                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">Church Upgrade</a></div>
                   <div className="shrink-0 self-start ml-2">
-                    <span className="font-medium text-green-600">+99.99</span>
+                    <span className="font-medium text-green-600">+₦500,000</span>
                   </div>
                 </div>
               </div>
@@ -70,14 +70,14 @@ function DashboardCard13() {
               </div>
               <div className="grow flex items-center border-b border-gray-100 dark:border-gray-700/60 text-sm py-2">
                 <div className="grow flex justify-between">
-                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">Market Cap Ltd</a></div>
+                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">Bus Project</a></div>
                   <div className="shrink-0 self-start ml-2">
-                    <span className="font-medium text-green-600">+1,200.88</span>
+                    <span className="font-medium text-green-600">+₦1,000,000</span>
                   </div>
                 </div>
               </div>
             </li>
-            {/* Item */}
+            {/* Item
             <li className="flex px-2">
               <div className="w-9 h-9 rounded-full shrink-0 bg-gray-200 my-2 mr-3">
                 <svg className="w-9 h-9 fill-current text-gray-400" viewBox="0 0 36 36">
@@ -92,7 +92,8 @@ function DashboardCard13() {
                   </div>
                 </div>
               </div>
-            </li>
+            </li> */}
+
             {/* Item */}
             <li className="flex px-2">
               <div className="w-9 h-9 rounded-full shrink-0 bg-red-500 my-2 mr-3">
@@ -102,9 +103,9 @@ function DashboardCard13() {
               </div>
               <div className="grow flex items-center text-sm py-2">
                 <div className="grow flex justify-between">
-                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">App.com</a> Market Ltd 70 Wilson St London</div>
+                  <div className="self-center"><a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white" href="#0">TLBCM'24 Camp Support</a> from Central </div>
                   <div className="shrink-0 self-start ml-2">
-                    <span className="font-medium text-gray-800 dark:text-gray-100">-$49.88</span>
+                    <span className="font-medium text-gray-800 dark:text-gray-100">-₦100,000</span>
                   </div>
                 </div>
               </div>

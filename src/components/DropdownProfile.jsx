@@ -1,17 +1,69 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
-
+import authService from '../Services/authService';
+import axios from 'axios';
 import UserAvatar from '../images/user-avatar-32.png';
 
-function DropdownProfile({
-  align
-}) {
 
+function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
 
+  const navigate = useNavigate();
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const info = await authService.getUserInfo();
+        setUserInfo(info);
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+      }
+    };
+    fetchUserInfo();
+  }, []);
+
+
+
+  const handleLogout = () => {
+    authService.logout().then(() => {
+      setDropdownOpen(false);
+      navigate('/login');
+    });
+  };
+
+
+  const handleViewProfile = () => {
+    setDropdownOpen(false);
+    navigate('/profile');
+  };
+
+  const getNamePrefix = () => {
+    const pastorNames = ['Name1', 'Name2', /* ... add all 12 names */];
+    if (pastorNames.includes(userInfo.first_name)) return 'Pastor';
+    return userInfo.gender === 'Male' ? 'Bro' : 'Sis';
+  };
+
+  const displayName = `${getNamePrefix()} ${userInfo.first_name || ''}`;
+
+  // Fetch profile data on "View Profile" click
+  // const handleViewProfile = async () => {
+  //   try {
+  //     const response = await axios.get(`https://tlbc-platform-api.onrender.com/api/user/`, {
+  //       headers: { Authorization: `Bearer ${accessToken}` },
+  //     });
+  //     const profileData = response.data;
+
+      // Pass the profile data to the UserProfile page using state
+  //     navigate('/profile', { state: { profileData } });
+  //   } catch (error) {
+  //     console.error('Error fetching profile data:', error);
+  //   }
+  // };
+
 
   // close on click outside
   useEffect(() => {
@@ -79,15 +131,15 @@ function DropdownProfile({
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-gray-200 dark:border-gray-700/60">
-            <div className="font-medium text-gray-800 dark:text-gray-100">Pst. Eloka Okeke</div>
-            <div className="text-sm text-gray-500 dark:text-gray-400 italic">Super Admin</div>
+            <div className="font-medium text-gray-800 dark:text-gray-100">{displayName}</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400 italic">{userInfo.role}</div>
           </div>
           <ul>
           <li>
               <Link
                 className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
                 to="/profile"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={handleViewProfile}
               >
                 View Profile
               </Link>
@@ -104,8 +156,9 @@ function DropdownProfile({
             <li>
               <Link
                 className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
-                to="/logout"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                // to="/logout"
+                // onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={handleLogout}
               >
                 Log out
               </Link>

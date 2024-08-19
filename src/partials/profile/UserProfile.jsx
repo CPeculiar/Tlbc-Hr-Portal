@@ -1,231 +1,192 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useThemeProvider } from "../../utils/ThemeContext";
-import Sidebar from '../Sidebar';
-import Header from '../Header';
-import Image from '../../assets/images/FamilyExperience.jpg'
-
-
+import Sidebar from "../Sidebar";
+import Header from "../Header";
+import axios from "axios";
+import authService from "../../Services/authService";
+import Image from "../../assets/images/TLBC_LOGO_removebg.png";
+import ChangePassword from "../../pages/Auth/ChangePassword";
 
 const ProfileSettings = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { currentTheme } = useThemeProvider();
-  const [profileData, setProfileData] = useState({
-    firstName: '',
-    surname: '',
-    mobileNumber: '',
-    addressLine1: '',
-    addressLine2: '',
-    postcode: '',
-    state: '',
-    area: '',
-    emailId: '',
-    education: '',
-    country: '',
-    stateRegion: '',
-    experience: '',
-    additionalDetails: ''
-  });
+  const location = useLocation();
+  const [profileData, setProfileData] = useState({});
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [profilePicture, setProfilePicture] = useState(null);
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        setLoading(true);
+        const data = await authService.getUserInfo();
+        setProfileData(data);
+        setFormData(data);
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProfileData();
+  }, []);
+
+  const handleChangePassword = () => {
+    navigate("/changepassword");
+  };
 
   const handleChange = (e) => {
-    setProfileData({ ...profileData, [e.target.name]: e.target.value });
+    setFormData({ ...profileData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Profile data submitted:', profileData);
-    // Handle form submission here
+  const handleFileChange = (e) => {
+    setProfilePicture(e.target.files[0]);
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        alert("Access token not found. Please login first.");
+        navigate("/login");
+        return;
+      }
+
+      const formDataToSend = new FormData();
+
+      // const updatedFields = {};
+
+      Object.keys(formData).forEach((key) => {
+        if (formData[key] !== profileData[key] && formData[key] !== "") {
+          formDataToSend.append(key, formData[key]);
+          // updatedFields[key] = formData[key];
+        }
+      });
+
+      if (profilePicture) {
+        formDataToSend.append("profile_picture", profilePicture);
+      }
+
+      const response = await axios.patch(
+        "https://tlbc-platform-api.onrender.com/api/user/",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken}`, // Assuming you have a method to get the token
+          },
+          withCredentials: true, // This will send cookies with the request
+        }
+      );
+
+      // await authService.updateProfile(updatedFields);
+      alert("Profile updated successfully");
+      // Refresh profile data
+      // const updatedData = await authService.getUserInfo();
+      // setProfileData(updatedData);
+      // setFormData(updatedData);
+      setProfileData(response.data);
+      setFormData(response.data);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Failed to update profile");
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/*  Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main className="grow">
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-            {/* Dashboard actions */}
-            <div className="sm:flex sm:justify-between sm:items-center mb-2">
-              {/* Left: Title */}
-              <div className="mb-1 sm:mb-0">
-              <h2 className="text-2xl font-bold mb-2">Profile Settings</h2>
-                
-
+            <h2 className="text-2xl font-bold mb-5">Profile Settings</h2>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="mb-6">
+                <img
+                  src={
+                    profileData.profile_picture
+                      ? `https://tlbc-platform-api.onrender.com/media/${profileData.profile_picture}`
+                      : Image
+                  }
+                  alt="Profile"
+                  className="w-28 h-24 rounded-full mr-4 object-cover"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = Image;
+                  }} // Fallback to default image on error
+                />
+                <h3 className="text-xl font-semibold">{`${
+                  formData.first_name || ""
+                } ${formData.last_name || ""}`}</h3>
+                <p>{formData.role || ""}</p>
               </div>
+              <form
+                onSubmit={handleSubmit}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                <div className="md:col-span-2">
+                  <label className="block mb-2">Profile Picture:</label>
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    className="w-full p-2 border rounded"
+                  />
+                </div>
+                {Object.entries(formData).map(
+                  ([key, value]) =>
+                    key !== "profile_picture" &&
+                    key !== "email" && (
+                      <div key={key}>
+                        <label className="block mb-2 capitalize">
+                          {key.replace("_", " ")}:
+                        </label>
+                        <input
+                          type="text"
+                          name={key}
+                          value={value || ""}
+                          onChange={handleChange}
+                          className="w-full p-2 border rounded"
+                        />
+                      </div>
+                    )
+                )}
+                <div className="md:col-span-2 flex justify-between">
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                  >
+                    Update Profile
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleChangePassword}
+                    className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                  >
+                    Change Password
+                  </button>
+                </div>
+              </form>
+              {showChangePassword && <ChangePassword />}
             </div>
-
-
-
-
-
-    <div className="p-4">
-      <div className="bg-white p-4 rounded-lg shadow">
-        <div className="flex items-center mb-4">
-          <img src={Image} alt="Profile" className="w-24 h-24 rounded-full mr-4" />
-          <div>
-            <h3 className="text-xl font-bold">Reuben Faruna</h3>
-            <p>Reuben@gmail.com</p>
           </div>
-        </div>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block mb-2">First Name:</label>
-            <input
-              type="text"
-              name="firstName"
-              value={profileData.firstName}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Surname:</label>
-            <input
-              type="text"
-              name="surname"
-              value={profileData.surname}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Mobile Number:</label>
-            <input
-              type="tel"
-              name="mobileNumber"
-              value={profileData.mobileNumber}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Address Line 1:</label>
-            <input
-              type="text"
-              name="addressLine1"
-              value={profileData.addressLine1}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Address Line 2:</label>
-            <input
-              type="text"
-              name="addressLine2"
-              value={profileData.addressLine2}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Postcode:</label>
-            <input
-              type="text"
-              name="postcode"
-              value={profileData.postcode}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">State:</label>
-            <input
-              type="text"
-              name="state"
-              value={profileData.state}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Area:</label>
-            <input
-              type="text"
-              name="area"
-              value={profileData.area}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Email ID:</label>
-            <input
-              type="email"
-              name="emailId"
-              value={profileData.emailId}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Education:</label>
-            <input
-              type="text"
-              name="education"
-              value={profileData.education}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Country:</label>
-            <input
-              type="text"
-              name="country"
-              value={profileData.country}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">State/Region:</label>
-            <input
-              type="text"
-              name="stateRegion"
-              value={profileData.stateRegion}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="block mb-2">Experience in Designing:</label>
-            <textarea
-              name="experience"
-              value={profileData.experience}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-              rows="3"
-            ></textarea>
-          </div>
-          <div className="md:col-span-2">
-            <label className="block mb-2">Additional Details:</label>
-            <textarea
-              name="additionalDetails"
-              value={profileData.additionalDetails}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-              rows="3"
-            ></textarea>
-          </div>
-          <div className="md:col-span-2">
-            <button type="submit" className="bg-purple-600 text-white p-2 rounded">
-              Save Profile
-            </button>
-          </div>
-        </form>
+        </main>
       </div>
     </div>
-
-    </div>
-    </main>
-    </div>
-    </div>
-
   );
 };
 

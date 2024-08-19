@@ -15,10 +15,8 @@ const Register = () => {
     email: "",
     username: "",
     password: "",
-    birth_date: "",
     gender: "",
-    phone_number: "",
-    zone: "",
+    phone_number: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -274,13 +272,14 @@ const Register = () => {
                 </span>
               </div>
               <div>
-              {/* <label htmlFor="birth_date" className="text-gray-900">Date of Birth</label> */}
+               <label htmlFor="birth_date" className="text-gray-900">Date of Birth</label> 
                 <input
                   type="date"
                   name="birth_date"
                   onChange={handleInputChange}
                   value={formData.birth_date}
-                  className="w-full text-gray-900 px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  placeholder="enter date"
+                  className="w-full text-gray-900 px-3 py-2 text-black text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
                 />
                 <span className="text-red-500 text-xs">
                   {errors.birth_date}
@@ -318,7 +317,7 @@ const Register = () => {
                 </select>
                 <span className="text-red-500 text-xs">{errors.zone}</span>
               </div>
-            </div>
+            </div> 
 
             <div className="mb-4">
                   <div className="form-check">
@@ -338,9 +337,10 @@ const Register = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full text-white bg-blue-600 hover:bg-blue-800 py-2 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              {isLoading ? "Registering..." : "Register"}
+              className={`w-full text-white bg-blue-600 hover:bg-blue-800 py-2 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+            ${isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  }`}>
+          {isLoading ? "Registering..." : "Register"}
             </button>
 
             {errors.submit && (
