@@ -57,3 +57,314 @@ function Signin() {
 }
 
 export default Signin
+
+
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+
+const [darkMode, setDarkMode] = useState(false);
+<>
+      <div className="flex flex-col justify-center items-center w-full h-[100vh] bg-[#282D2D] px-5">
+        <div
+          className={`xl:max-w-3xl ${darkMode ? "bg-black" : "bg-white"
+            }  w-full p-5 sm:p-10 rounded-md`}
+        >
+          <h1
+            className={`text-center text-xl sm:text-3xl font-semibold ${darkMode ? "text-white" : "text-black"
+              }`}
+          >
+            Login into your Account
+          </h1>
+          <div className="w-full mt-8">
+            <div className="mx-auto max-w-xs sm:max-w-md md:max-w-lg flex flex-col gap-4">
+              <input
+                className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                  ? "bg-[#302E30] text-white focus:border-white"
+                  : "bg-gray-100 text-black focus:border-black"
+                  }`}
+                type="text"
+                placeholder="Your Username"
+              />
+              <input
+                className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                  ? "bg-[#302E30] text-white focus:border-white"
+                  : "bg-gray-100 text-black focus:border-black"
+                  }`}
+                type="password"
+                placeholder="Password"
+              />
+            </div>
+            <button className="mt-5 tracking-wide font-semibold bg-[#E9522C] text-gray-100 w-full py-4 rounded-lg hover:bg-[#E9522C]/90 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+              <svg
+                className="w-6 h-6 -ml-2"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="8.5" cy="7" r="4" />
+                <path d="M20 8v6M23 11h-6" />
+              </svg>
+              <span className="ml-3">Login</span>
+            </button>
+            <p className="mt-6 text-xs text-gray-600 text-center">
+              Don't have an account?{" "}
+              <Link to="/Register">
+                <span className="text-[#E9522C] font-semibold">Register</span>
+              </Link>
+            </p>
+            <p className="mt-2 text-xs text-gray-600 text-right">
+              <Link to="/ForgotPassword">
+                <span className="text-[#E9522C] font-semibold">Forgot Password?</span>
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-end justify-start overflow-hidden pt-5 xl:max-w-3xl w-full">
+          <div className="flex">
+            <h3 className="text-white">Switch Mode : &nbsp;</h3>
+            <label className="inline-flex relative items-center mr-5 cursor-pointer">
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={darkMode}
+                readOnly
+              />
+              <div
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                }}
+                className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+              ></div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </>
+
+
+
+Register
+
+<>
+      <div className="flex flex-col justify-center items-center w-full h-[150vh] bg-[#282D2D] px-5">
+        <div
+          className={`xl:max-w-3xl ${darkMode ? "bg-black" : "bg-white"
+            }  w-full p-5 sm:p-10 rounded-md`}
+        >
+          <h1
+            className={`text-center text-xl sm:text-3xl font-semibold ${darkMode ? "text-white" : "text-black"
+              }`}
+          >
+            Register for an Account
+          </h1>
+          <div className="w-full mt-8">
+            <div className="mx-auto max-w-xs sm:max-w-md md:max-w-lg flex flex-col gap-4">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                    ? "bg-[#302E30] text-white focus:border-white"
+                    : "bg-gray-100 text-black focus:border-black"
+                    }`}
+                  type="text"
+                  placeholder="Your firstname"
+                />
+                <input
+                  className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                    ? "bg-[#302E30] text-white focus:border-white"
+                    : "bg-gray-100 text-black focus:border-black"
+                    }`}
+                  type="text"
+                  placeholder="Your lastname"
+                />
+              </div>
+              <input
+                className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                  ? "bg-[#302E30] text-white focus:border-white"
+                  : "bg-gray-100 text-black focus:border-black"
+                  }`}
+                type="email"
+                placeholder="Enter your email"
+              />
+              <input
+                className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                  ? "bg-[#302E30] text-white focus:border-white"
+                  : "bg-gray-100 text-black focus:border-black"
+                  }`}
+                type="text"
+                placeholder="Your Username"
+              />
+              <input
+                className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                  ? "bg-[#302E30] text-white focus:border-white"
+                  : "bg-gray-100 text-black focus:border-black"
+                  }`}
+                type="password"
+                placeholder="Password"
+              />
+              <input
+                className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                  ? "bg-[#302E30] text-white focus:border-white"
+                  : "bg-gray-100 text-black focus:border-black"
+                  }`}
+                type="date"
+                placeholder="Date of Birth"
+              />
+              <select
+                className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                  ? "bg-[#302E30] text-white focus:border-white"
+                  : "bg-gray-100 text-black focus:border-black"
+                  }`}
+              >
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+              <select
+                className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                  ? "bg-[#302E30] text-white focus:border-white"
+                  : "bg-gray-100 text-black focus:border-black"
+                  }`}
+              >
+                <option value="" disabled selected>Select Zone</option>
+                <option value="">Awka Zone</option>
+                <option value="">Owerri Zone</option>
+                <option value="">Nnewi Zone</option>
+                <option value="">Ekwulobia Zone</option>
+                <option value="">TLBC Onitsha</option>
+              </select>
+              <div className="flex items-center mt-4">
+          <input
+            id="termsCheckbox"
+            type="checkbox"
+            className="w-4 h-4 text-[#E9522C] bg-gray-100 border-gray-300 rounded focus:ring-[#E9522C] focus:ring-2"
+          />
+          <label
+            htmlFor="termsCheckbox"
+            className={`ml-2 text-sm font-medium ${darkMode ? "text-white" : "text-black"
+              }`}
+          >
+            Do you agree to the terms and conditions of the TLBC'IntL
+          </label>
+        </div>
+            </div>
+            <button className="mt-5 tracking-wide font-semibold bg-[#E9522C] text-gray-100 w-full py-4 rounded-lg hover:bg-[#E9522C]/90 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+              <svg
+                className="w-6 h-6 -ml-2"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="8.5" cy="7" r="4" />
+                <path d="M20 8v6M23 11h-6" />
+              </svg>
+              <span className="ml-3">Register</span>
+            </button>
+            <p className="mt-6 text-xs text-gray-600 text-center">
+              Already have an account?{" "}
+              <Link to="/Login">
+                <span className="text-[#E9522C] font-semibold">Login</span>
+              </Link>
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col items-end justify-start overflow-hidden pt-5 xl:max-w-3xl w-full">
+          <div className="flex">
+            <h3 className="text-white">Switch Mode : &nbsp;</h3>
+            <label className="inline-flex relative items-center mr-5 cursor-pointer">
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={darkMode}
+                readOnly
+              />
+              <div
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                }}
+                className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+              ></div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </>
+
+
+
+
+//forgot password
+
+<>
+      <div className="flex flex-col justify-center items-center w-full h-[100vh] bg-[#282D2D] px-5">
+        <div
+          className={`xl:max-w-3xl ${darkMode ? "bg-black" : "bg-white"
+            }  w-full p-5 sm:p-10 rounded-md`}
+        >
+          <h1
+            className={`text-center text-xl sm:text-3xl font-semibold ${darkMode ? "text-white" : "text-black"
+              }`}
+          >
+            Reset Password
+          </h1>
+          <div className="w-full mt-8">
+            <div className="mx-auto max-w-xs sm:max-w-md md:max-w-lg flex flex-col gap-4">
+              <p className="text-center text-sm text-gray-600">
+                Enter your e-mail address and we'll send you a link to reset your password
+              </p>
+              <input
+                className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2 focus:outline ${darkMode
+                  ? "bg-[#302E30] text-white focus:border-white"
+                  : "bg-gray-100 text-black focus:border-black"
+                  }`}
+                type="email"
+                placeholder="Your email here"
+              />
+            </div>
+            <button className="mt-5 tracking-wide font-semibold bg-[#E9522C] text-gray-100 w-full py-4 rounded-lg hover:bg-[#E9522C]/90 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+              <svg
+                className="w-6 h-6 -ml-2"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="8.5" cy="7" r="4" />
+                <path d="M20 8v6M23 11h-6" />
+              </svg>
+              <span className="ml-3">Reset Password</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-end justify-start overflow-hidden pt-5 xl:max-w-3xl w-full">
+          <div className="flex">
+            <h3 className="text-white">Switch Mode : &nbsp;</h3>
+            <label className="inline-flex relative items-center mr-5 cursor-pointer">
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={darkMode}
+                readOnly
+              />
+              <div
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                }}
+                className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-green-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+              ></div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </>
