@@ -19,6 +19,8 @@ import UserTable from "./partials/community/UserTable";
 import FinanceDashboard from "./partials/finance/FinanceDashboard";
 import ResetPassword from "./pages/Auth/ResetPassword";
 import IdleTimerContainer from "./components/IdleTimerContainer";
+import AttendanceCreationPage from "./partials/Attendance/CreateAttendance";
+import AttendanceMarkerPage from "./partials/Attendance/MarkAttendance";
 
 function App() {
   const location = useLocation();
@@ -97,6 +99,22 @@ function App() {
           element={
             <ProtectedRoute>
               <UserTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/createattendance"
+          element={
+            <ProtectedRoute>
+              <AttendanceCreationPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/markattendance"
+          element={
+            <ProtectedRoute>
+              <AttendanceMarkerPage />
             </ProtectedRoute>
           }
         />

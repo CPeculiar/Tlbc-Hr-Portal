@@ -19,6 +19,21 @@ const ProfileSettings = () => {
   const [loading, setLoading] = useState(true);
   const [profilePicture, setProfilePicture] = useState(null);
 
+  const churchOptions = {
+    "TLBC Awka": "tlbcm-awka",
+    "TLBC Ihiala":  "tlbc-ihiala",
+    "TLBC Ekwulobia": "tlbc-ekwulobia",
+    "TLBC Nnewi": "tlbc-nnewi",
+    "TLBCM NAU": "tlbcm-nau",
+    "TLBCM Oko": "tlbcm-oko",
+    "TLBCM Mgbakwu": "tlbcm-mgbakwu",
+    "TLBCM Igbariam": "tlbcm-igbariam",
+    "TLBCM Agulu": "tlbcm-agulu",
+    "TLBCM Okofia": "tlbcm-okofia",
+    "TLBCM FUTO": "tlbcm-futo",
+    "TLBCM Nekede": "tlbcm-nekede"
+  };
+
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -40,7 +55,15 @@ const ProfileSettings = () => {
   };
 
   const handleChange = (e) => {
-    setFormData({ ...profileData, [e.target.name]: e.target.value });
+    // setFormData({ ...profileData, [e.target.name]: e.target.value });
+
+    const { name, value } = e.target;
+    if (name === "church") {
+      // For church, we store the slug value
+      setFormData(prev => ({ ...prev, [name]: churchOptions[value] || value }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleFileChange = (e) => {
@@ -98,6 +121,11 @@ const ProfileSettings = () => {
     }
   };
 
+  // Helper function to get display name from slug
+  const getChurchDisplayName = (slug) => {
+    return Object.keys(churchOptions).find(key => churchOptions[key] === slug) || slug;
+  };
+
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -150,7 +178,8 @@ const ProfileSettings = () => {
                 {Object.entries(formData).map(
                   ([key, value]) =>
                     key !== "profile_picture" &&
-                    key !== "email" && (
+                    key !== "email" && 
+                    key !== "church" && (
                       <div key={key}>
                         <label className="block mb-2 capitalize">
                           {key.replace("_", " ")}:
@@ -165,6 +194,22 @@ const ProfileSettings = () => {
                       </div>
                     )
                 )}
+                <div>
+                  <label className="block mb-2 capitalize">Church:</label>
+                  <select
+                    name="church"
+                    value={getChurchDisplayName(formData.church)}
+                    onChange={handleChange}
+                    className="w-full p-2 border rounded"
+                  >
+                    <option value="" disabled>Select a church</option>
+                    {Object.keys(churchOptions).map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  </div>
                 <div className="md:col-span-2 flex justify-between">
                   <button
                     type="submit"
