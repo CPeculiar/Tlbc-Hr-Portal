@@ -13,8 +13,11 @@ const AttendanceCreationPage = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [qrCode, setQrCode] = useState(null);
+  const [newcomerQrCode, setNewcomerQrCode] = useState(null);
+  const [newcomerLink, setNewcomerLink] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const qrRef = useRef(null);
+  const newcomerQrRef = useRef(null);
 
   const [attendanceData, setAttendanceData] = useState({
     program: "",
@@ -34,6 +37,8 @@ const AttendanceCreationPage = () => {
     setIsLoading(true);
     setErrors({});
     setQrCode(null);
+    setNewcomerQrCode(null);
+    setNewcomerLink(null);
     setSuccessMessage("");
 
     try {
@@ -60,6 +65,16 @@ const AttendanceCreationPage = () => {
       // Set QR code image
       setQrCode(qrcode);
 
+      // Generate QR code for newcomers
+      // Use the full URL of your deployed application
+      const newcomerLinkUrl = `${window.location.origin}/form/${ref_code}`;
+      setNewcomerLink(newcomerLinkUrl);
+            
+      const newcomerLink = `${window.location.origin}/form/${ref_code}`;
+      const newcomerQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(newcomerLink)}`;
+      setNewcomerQrCode(newcomerQrCodeUrl);
+
+
       // Extract date from message and set success message
       const dateMatch = message.match(/'([^']+)'/);
       const extractedDate = dateMatch ? dateMatch[1] : "unknown date";
@@ -76,17 +91,19 @@ const AttendanceCreationPage = () => {
       console.error("Error creating attendance:", error);
 
       // Set errors from backend response
-      if (error.response?.data) {
+      if (error.response?.data?.detail) {
+        setErrors({ message: error.response.data.detail });
+      } else if (error.response?.data) {
         setErrors(error.response.data);
       } else {
-        setErrors({ message: "An error occurred" });
+        setErrors({ message: "An unexpected error occurred" });
       }
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleDownloadQR = () => {
+  const handleDownloadQR = (qrRef, filename) => {
     if (qrRef.current) {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
@@ -100,7 +117,7 @@ const AttendanceCreationPage = () => {
       ctx.drawImage(img, 0, 0, img.width, img.height);
 
       const link = document.createElement("a");
-      link.download = "attendance_qr_code.png";
+      link.download = filename;
       link.href = canvas.toDataURL();
       link.click();
     }
@@ -269,6 +286,7 @@ const AttendanceCreationPage = () => {
 
                 {qrCode && (
                   <div className="mt-6">
+                  <h2 className="text-xl font-semibold mb-2">Attendance QR Code</h2>
                     <img
                       ref={qrRef}
                       src={qrCode}
@@ -276,15 +294,42 @@ const AttendanceCreationPage = () => {
                       className="mx-auto"
                     />
                     <button
-                      onClick={handleDownloadQR}
+                      onClick={() => handleDownloadQR(qrRef, "attendance_qr_code.png")}
                       className="mt-4 btn bg-green-500 hover:bg-green-600 text-white flex items-center justify-center mx-auto"
                     >
                       <Download className="w-4 h-4 mr-2" />
-                      Download QR Code
+                      Download Attendance QR Code
                     </button>
                   </div>
                 )}
+
+                {newcomerQrCode && (
+              <div className="mt-6">
+                <h2 className="text-xl font-semibold mb-2">Newcomer QR Code</h2>
+                <img
+                  ref={newcomerQrRef}
+                  src={newcomerQrCode}
+                  alt="Newcomer QR Code"
+                  className="mx-auto"
+                />
+                <button
+                  onClick={() => handleDownloadQR(newcomerQrRef, "newcomer_qr_code.png")}
+                  className="mt-4 btn bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center mx-auto"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Download Newcomer QR Code
+                </button>
+                {newcomerLink && (
+                  <div className="mt-4 text-center">
+                    <p className="font-semibold">Newcomer Form Link:</p>
+                    <a href={newcomerLink} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline break-all">
+                      {newcomerLink}
+                    </a>
+                  </div>
+                )}
               </div>
+            )}
+          </div>
             </div>
           </div>
         </main>

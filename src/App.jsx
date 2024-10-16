@@ -21,6 +21,8 @@ import ResetPassword from "./pages/Auth/ResetPassword";
 import IdleTimerContainer from "./components/IdleTimerContainer";
 import AttendanceCreationPage from "./partials/Attendance/CreateAttendance";
 import AttendanceMarkerPage from "./partials/Attendance/MarkAttendance";
+import NewcomerForm from "./partials/Attendance/NewcomerForm";
+import AttendanceReport from "./partials/Attendance/AttendanceReport";
 
 function App() {
   const location = useLocation();
@@ -115,6 +117,22 @@ function App() {
           element={
             <ProtectedRoute>
               <AttendanceMarkerPage />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/attendancereport"
+          element={
+            <ProtectedRoute>
+              <AttendanceReport />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/form/:ref_code"
+          element={
+            <ProtectedRoute>
+              <NewcomerForm />
             </ProtectedRoute>
           }
         />

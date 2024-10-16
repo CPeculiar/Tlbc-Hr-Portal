@@ -63,8 +63,14 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch (error) {
+      if (error.response) {
+        const { data } = error.response;
+        // Handle non_field_errors or other error messages
+        setError(data.non_field_errors?.[0] || "Login failed. Please try again.");
+      } else {
       setError("Login failed. Please check your credentials.");
-    } finally {
+    } 
+  }finally {
       setIsLoading(false);
     }
   };

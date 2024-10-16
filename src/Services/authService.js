@@ -1,25 +1,42 @@
 import axios from 'axios';
+import { showToast } from '../utils/toast';
 
 const API_URL = 'https://tlbc-platform-api.onrender.com/api';
 
 const authService = {
   login: async (username, password) => {
+    try{
     const response = await axios.post(`${API_URL}/login/`, { username, password });
+    showToast.info('Logging in...');
     if (response.data.access) {
+     
       localStorage.setItem('accessToken', response.data.access);
       localStorage.setItem('refreshToken', response.data.refresh);
+
       // Set the default authorization header for all future requests
       axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
       authService.setAuthHeader(response.data.access);
       await authService.getUserInfo(); // Fetch and save user info after successful login
+     
+      // showToast.success('Successfully logged in!');
+
     }
     return response.data;
-  },
+} catch (error) {
+  console.error('Login error:', error);
+  showToast.error('Login failed. Please check your credentials.');
+  throw error;
+}
+},
 
-  logout: async () => {
+
+  logout: async (message) => {
     const refreshToken = localStorage.getItem('refreshToken');
+    // showToast.info('Logging out...');
+   
     try {
       const response = await axios.post(`${API_URL}/logout/`, { refresh: refreshToken });
+
       if (response.data.detail === "Successfully logged out." || response.status === 200) {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
@@ -27,14 +44,23 @@ const authService = {
         localStorage.removeItem('userRole');
         delete axios.defaults.headers.common['Authorization'];
         
+         showToast.success('Successfully logged out!');
+
         // Clear browser history
         window.history.pushState(null, '', window.location.href);
         window.onpopstate = function () {
           window.history.pushState(null, '', window.location.href);
         };
-      }
+      
+        // Redirect to home page after a short delay
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 1000);
+    }
+
     } catch (error) {
       console.error('Logout error:', error);
+      showToast.error('An error occurred during logout.');
     }
   },
 
@@ -116,3 +142,8 @@ export default authService;
 //   localStorage.setItem('gender', response.data.gender);
 //   return response.data;
 // },
+
+
+// Notify().showSuccessNotification("We are logging you in...");
+// Notify().showInfoNotification("Logging in...");
+// Notify().showInfoNotification(message || "We are logging you out...");

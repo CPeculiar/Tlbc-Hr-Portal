@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import Analytics from "../pages/Analytics";
-
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import Logo from "../assets/images/TLBC_LOGO_removebg.png";
 
@@ -16,6 +15,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
+
 
   // close on click outside
   useEffect(() => {
@@ -227,6 +227,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                 }}
               </SidebarLinkGroup>
 
+
        {/* Attendance */}
        <SidebarLinkGroup activecondition={pathname.includes("tasks")}>
                 {(handleClick, open) => {
@@ -311,13 +312,28 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               </span>
                             </NavLink>
                           </li>
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="/attendancereport"
+                              className={({ isActive }) =>
+                                "block transition duration-150 truncate " +
+                                (isActive
+                                  ? "text-violet-500"
+                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
+                              }
+                            >
+                              <span className="text-sm text-gray-500/90 font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                              Attendance Report
+                              </span>
+                            </NavLink>
+                          </li>
                         </ul>
                       </div>
                     </React.Fragment>
                   );
                 }}
               </SidebarLinkGroup>
-
 
 
               {/* Community */}
@@ -909,6 +925,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
               </span>
             </h3>
             <ul className="mt-3">
+
               {/* Authentication */}
               {/* <SidebarLinkGroup>
                 {(handleClick, open) => {
@@ -995,7 +1012,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                     </React.Fragment>
                   );
                 }}
-              </SidebarLinkGroup> */}
+              </SidebarLinkGroup> */} 
 
               {/* Onboarding */}
               {/* <SidebarLinkGroup>
