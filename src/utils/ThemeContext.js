@@ -45,7 +45,7 @@
 
 
 import * as React from 'react';
-import { useState } from 'react';
+
 
 const ThemeContext = React.createContext({
   currentTheme: 'light',
@@ -55,7 +55,7 @@ const ThemeContext = React.createContext({
 
 export function ThemeProvider({ children }) {
   const persistedTheme = localStorage.getItem('theme');
-  const [theme, setTheme] = useState(persistedTheme || 'light');
+  const [theme, setTheme] = React.useState(persistedTheme || 'light');
 
   const changeCurrentTheme = (newTheme) => {
     setTheme(newTheme);
@@ -86,4 +86,4 @@ export function ThemeProvider({ children }) {
   );
 }
 
-export const useThemeProvider = () => useContext(ThemeContext);
+export const useThemeProvider = () => React.useContext(ThemeContext);
