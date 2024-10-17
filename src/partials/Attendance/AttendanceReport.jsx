@@ -135,30 +135,26 @@ const AttendanceReport = () => {
         showAlert(error.response?.data?.message || "Error fetching attendance details", "error");
       }
     };
+    
+     // Function to handle pagination for newcomers
+  const handleNewcomersPagination = async (url) => {
+    try {
+      const response = await axios.get(url);
+      setNewcomersList(response.data);
+    } catch (error) {
+      showAlert(error.response?.data?.message || "Error fetching newcomers", "error");
+    }
+  };
 
-    // Render newcomers table
-  const renderNewcomersTable = () => (
-    <table className="min-w-full table-auto border-collapse border border-gray-300 mt-4">
-      <thead className="bg-gray-100">
-        <tr>
-          <th className="border p-2">First Name</th>
-          <th className="border p-2">Last Name</th>
-          <th className="border p-2">Email</th>
-          <th className="border p-2">Phone</th>
-        </tr>
-      </thead>
-      <tbody>
-        {newcomersList.results.map((newcomer, index) => (
-          <tr key={index} className="border-b">
-            <td className="border p-2">{newcomer.first_name}</td>
-            <td className="border p-2">{newcomer.last_name}</td>
-            <td className="border p-2">{newcomer.email}</td>
-            <td className="border p-2">{newcomer.phone_number}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+  // Function to handle pagination for attendance lists
+  const handleAttendancePagination = async (url, setListFunction) => {
+    try {
+      const response = await axios.get(url);
+      setListFunction(response.data);
+    } catch (error) {
+      showAlert(error.response?.data?.message || "Error fetching attendance", "error");
+    }
+  };
 
 
 
@@ -365,16 +361,234 @@ const AttendanceReport = () => {
             </CardContent>
           </Card>
 
+  {/* Attendance Lists Section */}
+  <div className="grid grid-cols-1 gap-6">
+            {/* Church Attendance List */}
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0">
+                <CardTitle>Church Attendance List</CardTitle>
+                <button
+                  onClick={getAttendanceList}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+                >
+                  Get Attendance List
+                </button>
+              </CardHeader>
+              <CardContent>
+                {attendanceList.results.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">No attendance records found</div>
+                ) : (
+                  <>
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead>
+                          <tr className="bg-gray-50">
+                            <th className="px-4 py-2 text-left">Program</th>
+                            <th className="px-4 py-2 text-left">Name</th>
+                            <th className="px-4 py-2 text-left">Venue</th>
+                            <th className="px-4 py-2 text-left">Date</th>
+                            <th className="px-4 py-2 text-left">Church</th>
+                            <th className="px-4 py-2 text-left">Status</th>
+                            <th className="px-4 py-2 text-center">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {attendanceList.results.map((attendance, index) => (
+                            <tr key={index} className="border-b">
+                              <td className="px-4 py-2">{attendance.program}</td>
+                              <td className="px-4 py-2">{attendance.name}</td>
+                              <td className="px-4 py-2">{attendance.venue}</td>
+                              <td className="px-4 py-2">{attendance.date}</td>
+                              <td className="px-4 py-2">{attendance.church}</td>
+                              <td className="px-4 py-2">
+                                <span className={`px-2 py-1 rounded-full text-xs ${
+                                  attendance.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                }`}>
+                                  {attendance.active ? 'Active' : 'Inactive'}
+                                </span>
+                              </td>
+                              <td className="px-4 py-2 text-center">
+                                <button
+                                  onClick={() => getAttendanceDetails(attendance.ref_code)}
+                                  className="text-blue-600 hover:text-blue-800"
+                                >
+                                  <Eye size={18} />
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
 
+                    <div className="flex justify-end gap-2 mt-4">
+                      {attendanceList.previous && (
+                        <button
+                          onClick={() => handleAttendancePagination(attendanceList.previous, setAttendanceList)}
+                          className="px-3 py-1 border rounded flex items-center gap-1 hover:bg-gray-50"
+                        >
+                          <ChevronLeft size={16} /> Previous
+                        </button>
+                      )}
+                      {attendanceList.next && (
+                        <button
+                          onClick={() => handleAttendancePagination(attendanceList.next, setAttendanceList)}
+                          className="px-3 py-1 border rounded flex items-center gap-1 hover:bg-gray-50"
+                        >
+                          Next <ChevronRight size={16} />
+                        </button>
+                      )}
+                    </div>
+                  </>
+                )}
+              </CardContent>
+            </Card>
 
-</main>
-</div>
-</div>
+            {/* All Attendance Lists */}
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0">
+                <CardTitle>All Attendance Lists</CardTitle>
+                <button
+                  onClick={getAllAttendanceLists}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+                >
+                  Get All Attendance
+                </button>
+              </CardHeader>
+              <CardContent>
+                {allAttendanceList.results.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">No attendance records found</div>
+                ) : (
+                  <>
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead>
+                          <tr className="bg-gray-50">
+                            <th className="px-4 py-2 text-left">Program</th>
+                            <th className="px-4 py-2 text-left">Name</th>
+                            <th className="px-4 py-2 text-left">Venue</th>
+                            <th className="px-4 py-2 text-left">Date</th>
+                            <th className="px-4 py-2 text-left">Church</th>
+                            <th className="px-4 py-2 text-left">Status</th>
+                            <th className="px-4 py-2 text-center">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {allAttendanceList.results.map((attendance, index) => (
+                            <tr key={index} className="border-b">
+                              <td className="px-4 py-2">{attendance.program}</td>
+                              <td className="px-4 py-2">{attendance.name}</td>
+                              <td className="px-4 py-2">{attendance.venue}</td>
+                              <td className="px-4 py-2">{attendance.date}</td>
+                              <td className="px-4 py-2">{attendance.church}</td>
+                              <td className="px-4 py-2">
+                                <span className={`px-2 py-1 rounded-full text-xs ${
+                                  attendance.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                }`}>
+                                  {attendance.active ? 'Active' : 'Inactive'}
+                                </span>
+                              </td>
+                              <td className="px-4 py-2 text-center">
+                                <button
+                                  onClick={() => getAttendanceDetails(attendance.ref_code)}
+                                  className="text-blue-600 hover:text-blue-800"
+                                >
+                                  <Eye size={18} />
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
 
+                    <div className="flex justify-end gap-2 mt-4">
+                      {allAttendanceList.previous && (
+                        <button
+                          onClick={() => handleAttendancePagination(allAttendanceList.previous, setAllAttendanceList)}
+                          className="px-3 py-1 border rounded flex items-center gap-1 hover:bg-gray-50"
+                        >
+                          <ChevronLeft size={16} /> Previous
+                        </button>
+                      )}
+                      {allAttendanceList.next && (
+                        <button
+                          onClick={() => handleAttendancePagination(allAttendanceList.next, setAllAttendanceList)}
+                          className="px-3 py-1 border rounded flex items-center gap-1 hover:bg-gray-50"
+                        >
+                          Next <ChevronRight size={16} />
+                        </button>
+                      )}
+                    </div>
+                  </>
+                )}
+              </CardContent>
+            </Card>
 
-    
-    
+            {/* Selected Attendance Details Modal */}
+            {selectedAttendance && (
+              <Card className="mt-6">
+                <CardHeader>
+                  <CardTitle className="flex justify-between items-center">
+                    Attendance Details
+                    <button
+                      onClick={() => setSelectedAttendance(null)}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      ×
+                    </button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <h3 className="font-semibold mb-2">General Information</h3>
+                      <div className="space-y-2">
+                        <p><span className="font-medium">Program:</span> {selectedAttendance.program}</p>
+                        <p><span className="font-medium">Name:</span> {selectedAttendance.name}</p>
+                        <p><span className="font-medium">Church:</span> {selectedAttendance.church}</p>
+                        <p><span className="font-medium">Venue:</span> {selectedAttendance.venue}</p>
+                        <p><span className="font-medium">Date:</span> {selectedAttendance.date}</p>
+                        <p><span className="font-medium">Status:</span> {selectedAttendance.active ? 'Active' : 'Inactive'}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2">Attendance Statistics</h3>
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="text-sm font-medium mb-1">Attendees</h4>
+                          <div className="grid grid-cols-2 gap-2">
+                            {Object.entries(selectedAttendance.attendees).map(([key, value]) => (
+                              <div key={key} className="bg-gray-50 p-2 rounded">
+                                <span className="text-sm text-gray-600">{key}:</span>
+                                <span className="ml-2 font-medium">{value}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-medium mb-1">Newcomers</h4>
+                          <div className="grid grid-cols-2 gap-2">
+                            {Object.entries(selectedAttendance.newcomers).map(([key, value]) => (
+                              <div key={key} className="bg-gray-50 p-2 rounded">
+                                <span className="text-sm text-gray-600">{key}:</span>
+                                <span className="ml-2 font-medium">{value}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </main>
+      </div>
+    </div>
   );
 };
+
 
 export default AttendanceReport

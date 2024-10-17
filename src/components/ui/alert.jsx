@@ -1,23 +1,24 @@
+// components/ui/alert.jsx
+
 import React from 'react';
 
-const Alert = ({ children, type = 'info', className }) => {
-  const baseStyles = "p-4 rounded-md flex items-start space-x-4";
-  const typeStyles = {
-    info: "bg-blue-50 text-blue-800 border border-blue-300",
-    success: "bg-green-50 text-green-800 border border-green-300",
-    warning: "bg-yellow-50 text-yellow-800 border border-yellow-300",
-    error: "bg-red-50 text-red-800 border border-red-300",
-  };
 
+export function Alert({ children, className = "", ...props }) {
   return (
-    <div className={`${baseStyles} ${typeStyles[type]} ${className}`}>
+    <div
+      role="alert"
+      className={`relative w-full rounded-lg border px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7 ${className}`}
+      {...props}
+    >
       {children}
     </div>
   );
-};
+}
 
-const AlertDescription = ({ children, className }) => (
-  <div className={`text-sm ${className}`}>{children}</div>
-);
-
-export { Alert, AlertDescription };
+export function AlertDescription({ children, className = "" }) {
+  return (
+    <div className={`text-sm opacity-90 [&_p]:leading-relaxed ${className}`}>
+      {children}
+    </div>
+  );
+}

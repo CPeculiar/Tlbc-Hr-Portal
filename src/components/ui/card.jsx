@@ -1,24 +1,31 @@
-import React from 'react';
+export function Card({ children, className = "" }) {
+  return (
+    <div className={`bg-white rounded-lg border shadow-sm ${className}`}>
+      {children}
+    </div>
+  );
+}
 
-const Card = ({ children, className }) => (
-  <div className={`bg-white shadow-md rounded-lg p-6 ${className}`}>
-    {children}
-  </div>
-);
+export function CardHeader({ children, className = "" }) {
+  return (
+    <div className={`p-6 flex flex-col space-y-1.5 ${className}`}>
+      {children}
+    </div>
+  );
+}
 
-const CardHeader = ({ title, subtitle, className }) => (
-  <div className={`border-b pb-4 mb-4 ${className}`}>
-    <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
-    {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
-  </div>
-);
+export function CardTitle({ children, className = "" }) {
+  return (
+    <h3 className={`text-lg md:text-xl font-semibold leading-none tracking-tight ${className}`}>
+      {children}
+    </h3>
+  );
+}
 
-const CardContent = ({ children, className }) => (
-  <div className={`text-gray-700 ${className}`}>{children}</div>
-);
-
-const CardTitle = ({ children, className }) => (
-  <h3 className={`text-lg font-medium text-gray-800 ${className}`}>{children}</h3>
-);
-
-export { Card, CardHeader, CardContent, CardTitle };
+export function CardContent({ children, className = "" }) {
+  return (
+    <div className={`p-6 pt-0 ${className}`}>
+      {children}
+    </div>
+  );
+}
