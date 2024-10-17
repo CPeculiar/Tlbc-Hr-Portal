@@ -1,5 +1,6 @@
 // import plugin from "tailwindcss/plugin";
 // import forms from '@tailwindcss/forms';
+import plugin from 'tailwindcss/plugin';
 const forms = require('@tailwindcss/forms');
 // const plugin = require('@tailwindcss/plugin')
 
@@ -135,7 +136,9 @@ module.exports = {
     // add custom variant for expanding sidebar
     plugin(({ addVariant, e }) => {
       addVariant('sidebar-expanded', ({ modifySelectors, separator }) => {
-        modifySelectors(({ className }) => `.sidebar-expanded .${e(`sidebar-expanded${separator}${className}`)}`);
+        modifySelectors(({ className }) => 
+          `.sidebar-expanded .${e(`sidebar-expanded${separator}${className}`)}`
+        );
       });
     }),
   ],
