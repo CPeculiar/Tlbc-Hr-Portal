@@ -1,11 +1,12 @@
-// import plugin from "tailwindcss/plugin";
-// import forms from '@tailwindcss/forms';
-const plugin = require('tailwindcss/plugin');
-const forms = require('@tailwindcss/forms');
+import plugin from "tailwindcss/plugin";
+import forms from '@tailwindcss/forms';
+
+// const plugin = require('tailwindcss/plugin');
+// const forms = require('@tailwindcss/forms');
 // const plugin = require('@tailwindcss/plugin')
 
 
-module.exports = {
+export default  {
   content: [
     './index.html',
     './src/**/*.{js,jsx,ts,tsx}',

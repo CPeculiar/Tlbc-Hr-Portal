@@ -1,13 +1,12 @@
-// import resolveConfig from 'tailwindcss/resolveConfig'
-// import tailwindConfigFile from '@tailwindConfig'
+import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindConfigFile from '../../tailwind.config';
 
 
-const resolveConfig = require('tailwindcss/resolveConfig');
-const tailwindConfigFile = require('@tailwindConfig');
+// const resolveConfig = require('tailwindcss/resolveConfig');
+// const tailwindConfigFile = require('@tailwindConfig');
 
-export const tailwindConfig = () => {
-  return resolveConfig(tailwindConfigFile)
-}
+export const tailwindConfig = () => resolveConfig(tailwindConfigFile);
+
 
 export const hexToRGB = (h) => {
   let r = 0;

@@ -32,8 +32,8 @@ export const chartAreaGradient = (ctx, chartArea, colorStops) => {
 
 export const chartColors = {
   textColor: {
-    light: tailwindConfig().theme.colors.gray[400],
-    dark: tailwindConfig().theme.colors.gray[500],
+    light: tailwindConfig()?.theme?.colors?.gray?.[400] || '#9CA3AF',
+    dark: tailwindConfig()?.theme?.colors?.gray?.[500] || '#6B7280',
   },
   gridColor: {
     light: tailwindConfig().theme.colors.gray[100],
