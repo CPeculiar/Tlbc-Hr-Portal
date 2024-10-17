@@ -1,5 +1,9 @@
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfigFile from '@tailwindConfig'
+// import resolveConfig from 'tailwindcss/resolveConfig'
+// import tailwindConfigFile from '@tailwindConfig'
+
+
+const resolveConfig = require('tailwindcss/resolveConfig');
+const tailwindConfigFile = require('@tailwindConfig');
 
 export const tailwindConfig = () => {
   return resolveConfig(tailwindConfigFile)
