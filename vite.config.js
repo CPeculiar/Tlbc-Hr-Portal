@@ -25,7 +25,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@tailwindConfig': path.resolve(__dirname, './tailwind.config.js'),
-      'prop-types': path.resolve(__dirname, './node_modules/prop-types/index.js'),
+      'prop-types': path.resolve(__dirname, './prop-types-fix.js')
     },
     extensions: ['.js', '.jsx', '.json']
   },
