@@ -1,20 +1,20 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import * as React from 'react';
 
-const ThemeContext = createContext({
+const ThemeContext = React.createContext({
   currentTheme: 'light',
   changeCurrentTheme: () => {},
 });
 
 export default function ThemeProvider({children}) {  
   const persistedTheme = localStorage.getItem('theme');
-  const [theme, setTheme] = useState(persistedTheme || 'light');
+  const [theme, setTheme] = React.useState(persistedTheme || 'light');
 
   const changeCurrentTheme = (newTheme) => {
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.documentElement.classList.add('[&_*]:!transition-none');
     if (theme === 'light') {
       document.documentElement.classList.remove('dark');
@@ -38,4 +38,4 @@ export default function ThemeProvider({children}) {
   );
 }
 
-export const useThemeProvider = () => useContext(ThemeContext);
+export const useThemeProvider = () => React.useContext(ThemeContext);
