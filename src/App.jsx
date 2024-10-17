@@ -141,10 +141,10 @@ function App() {
                                           <FinanceDashboard />
                                               </ProtectedRoute>} />
       </Routes>
-
       </IdleTimerContainer>
     </>
   );
 }
+
 
 export default App;
