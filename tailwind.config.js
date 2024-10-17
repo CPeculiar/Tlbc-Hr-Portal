@@ -1,8 +1,8 @@
-import plugin from "tailwindcss/plugin";
-import forms from '@tailwindcss/forms';
+// import plugin from "tailwindcss/plugin";
+// import forms from '@tailwindcss/forms';
 
-// const plugin = require('tailwindcss/plugin');
-// const forms = require('@tailwindcss/forms');
+const plugin = require('tailwindcss/plugin');
+const forms = require('@tailwindcss/forms');
 // const plugin = require('@tailwindcss/plugin')
 
 
