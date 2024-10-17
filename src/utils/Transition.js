@@ -3,13 +3,13 @@ import { CSSTransition as ReactCSSTransition } from 'react-transition-group';
 
 const TransitionContext = React.createContext({
   parent: {},
-})
+});
 
 function useIsInitialRender() {
   const isInitialRender = useRef(true);
   useEffect(() => {
     isInitialRender.current = false;
-  }, [])
+  }, []);
   return isInitialRender.current;
 }
 
@@ -46,49 +46,51 @@ function CSSTransition({
   const nodeRef = React.useRef(null);
   const Component = tag;
 
-  return (
-    <ReactCSSTransition
-      appear={appear}
-      nodeRef={nodeRef}
-      unmountOnExit={removeFromDom}
-      in={show}
-      addEndListener={(done) => {
-        nodeRef.current.addEventListener('transitionend', done, false)
-      }}
-      onEnter={() => {
+  return React.createElement(
+    ReactCSSTransition,
+    {
+      appear,
+      nodeRef,
+      unmountOnExit: removeFromDom,
+      in: show,
+      addEndListener: (done) => {
+        nodeRef.current.addEventListener('transitionend', done, false);
+      },
+      onEnter: () => {
         if (!removeFromDom) nodeRef.current.style.display = null;
-        addClasses(nodeRef.current, [...enterClasses, ...enterStartClasses])
-      }}
-      onEntering={() => {
-        removeClasses(nodeRef.current, enterStartClasses)
-        addClasses(nodeRef.current, enterEndClasses)
-      }}
-      onEntered={() => {
-        removeClasses(nodeRef.current, [...enterEndClasses, ...enterClasses])
-      }}
-      onExit={() => {
-        addClasses(nodeRef.current, [...leaveClasses, ...leaveStartClasses])
-      }}
-      onExiting={() => {
-        removeClasses(nodeRef.current, leaveStartClasses)
-        addClasses(nodeRef.current, leaveEndClasses)
-      }}
-      onExited={() => {
-        removeClasses(nodeRef.current, [...leaveEndClasses, ...leaveClasses])
+        addClasses(nodeRef.current, [...enterClasses, ...enterStartClasses]);
+      },
+      onEntering: () => {
+        removeClasses(nodeRef.current, enterStartClasses);
+        addClasses(nodeRef.current, enterEndClasses);
+      },
+      onEntered: () => {
+        removeClasses(nodeRef.current, [...enterEndClasses, ...enterClasses]);
+      },
+      onExit: () => {
+        addClasses(nodeRef.current, [...leaveClasses, ...leaveStartClasses]);
+      },
+      onExiting: () => {
+        removeClasses(nodeRef.current, leaveStartClasses);
+        addClasses(nodeRef.current, leaveEndClasses);
+      },
+      onExited: () => {
+        removeClasses(nodeRef.current, [...leaveEndClasses, ...leaveClasses]);
         if (!removeFromDom) nodeRef.current.style.display = 'none';
-      }}
-    >
-      <Component 
-        ref={nodeRef} 
-        {...rest} 
-        style={{ 
-          display: !removeFromDom && !show ? 'none' : undefined 
-        }}
-      >
-        {children}
-      </Component>
-    </ReactCSSTransition>
-  )
+      }
+    },
+    React.createElement(
+      Component,
+      {
+        ref: nodeRef,
+        ...rest,
+        style: {
+          display: !removeFromDom && !show ? 'none' : undefined
+        }
+      },
+      children
+    )
+  );
 }
 
 function Transition({ show, appear, ...rest }) {
@@ -97,28 +99,30 @@ function Transition({ show, appear, ...rest }) {
   const isChild = show === undefined;
 
   if (isChild) {
-    return (
-      <CSSTransition
-        appear={parent.appear || !parent.isInitialRender}
-        show={parent.show}
-        {...rest}
-      />
-    )
+    return React.createElement(CSSTransition, {
+      appear: parent.appear || !parent.isInitialRender,
+      show: parent.show,
+      ...rest
+    });
   }
 
-  return (
-    <TransitionContext.Provider
-      value={{
+  return React.createElement(
+    TransitionContext.Provider,
+    {
+      value: {
         parent: {
           show,
           isInitialRender,
-          appear,
-        },
-      }}
-    >
-      <CSSTransition appear={appear} show={show} {...rest} />
-    </TransitionContext.Provider>
-  )
+          appear
+        }
+      }
+    },
+    React.createElement(CSSTransition, {
+      appear,
+      show,
+      ...rest
+    })
+  );
 }
 
 export default Transition;
