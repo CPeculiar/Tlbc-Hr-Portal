@@ -9,8 +9,14 @@ export default defineConfig({
     'process.env': process.env
   },
   plugins: [
-    react(),
+    react({
+      jsxRuntime: 'classic', // Add this line
+      babel: {
+        plugins: ['@babel/plugin-transform-react-jsx']
+      }
+    }),
     commonjs({
+      requireReturnsDefault: 'auto',
       include: [
         'node_modules/prop-types/**',
         'node_modules/react-transition-group/**'
@@ -21,14 +27,18 @@ export default defineConfig({
   resolve: {
     alias: {
       '@tailwindConfig': path.resolve(__dirname, 'tailwind.config.js'),
-      'prop-types': path.resolve(__dirname, 'node_modules/prop-types/index.js')
+      'prop-types': path.resolve(__dirname, 'node_modules/prop-types/index.js'),
+      'react/jsx-runtime': 'react/jsx-runtime.js'
     },
   },
   optimizeDeps: {
     include: [
       '@tailwindConfig',
       'prop-types',
-      'react-transition-group'
+      'react-transition-group',
+      'react',
+      'react-dom',
+      'react/jsx-runtime'
     ]
   }, 
   build: {
