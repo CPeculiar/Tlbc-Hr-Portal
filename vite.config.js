@@ -25,7 +25,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@tailwindConfig': path.resolve(__dirname, './tailwind.config.js'),
-      'prop-types': path.resolve(__dirname, './prop-types-fix.js')
+      'prop-types': 'prop-types/prop-types.js'
     },
     extensions: ['.js', '.jsx', '.json']
   },
@@ -37,7 +37,10 @@ export default defineConfig({
       'react-dom'
     ],
     esbuildOptions: {
-      target: 'es2020'
+      target: 'es2020',
+      define: {
+        global: 'globalThis'
+      }
     }
   },
   build: {

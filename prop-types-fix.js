@@ -1,3 +1,3 @@
-import * as PropTypes from 'prop-types';
+// import * as PropTypes from 'prop-types';
 
-export default PropTypes;
+// export default PropTypes;

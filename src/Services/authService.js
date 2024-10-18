@@ -7,9 +7,9 @@ const authService = {
   login: async (username, password) => {
     try{
     const response = await axios.post(`${API_URL}/login/`, { username, password });
-    showToast.info('Logging in...');
-    if (response.data.access) {
-     
+    showToast.info('Logging in...', { autoClose: 2000 });
+
+    if (response.data.access) { 
       localStorage.setItem('accessToken', response.data.access);
       localStorage.setItem('refreshToken', response.data.refresh);
 

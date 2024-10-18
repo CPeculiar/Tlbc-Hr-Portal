@@ -17,6 +17,8 @@ export const showToast = {
     toast.success(message, {
       ...defaultConfig,
       className: 'toast-success',
+      progressStyle: { background: '#4CAF50' },
+      hideProgressBar: false 
     });
   },
   error: (message) => {
@@ -36,5 +38,14 @@ export const showToast = {
       ...defaultConfig,
       className: 'toast-warning',
     });
-  }
-};
+  },
+  // custom: (message, options = {}) => toast(message, { ...defaultOptions, ...options }),
+ 
+  // Custom styling
+  custom: (message) => {
+    toast.custom(message, {
+      ...defaultConfig,
+  className: 'custom-toast',
+  progressClassName: 'custom-progress-bar',
+});
+  }}
