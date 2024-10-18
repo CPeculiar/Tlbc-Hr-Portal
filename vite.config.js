@@ -8,11 +8,7 @@ export default defineConfig({
     'process.env': process.env
   },
   plugins: [
-    react({
-      babel: {
-        plugins: ['@babel/plugin-transform-react-jsx']
-      }
-    }),
+    react(),
     commonjs({
       requireReturnsDefault: 'namespace',
       include: [

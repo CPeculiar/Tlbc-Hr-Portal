@@ -1,12 +1,9 @@
-import plugin from "tailwindcss/plugin";
 import forms from '@tailwindcss/forms';
-
-// const plugin = require('tailwindcss/plugin');
-// const forms = require('@tailwindcss/forms');
-// const plugin = require('@tailwindcss/plugin')
+import plugin from 'tailwindcss/plugin';
 
 
-export default  {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: [
     './index.html',
     './src/**/*.{js,jsx,ts,tsx}',
@@ -134,7 +131,6 @@ export default  {
   },
   plugins: [
     forms,
-    // add custom variant for expanding sidebar
     plugin(({ addVariant, e }) => {
       addVariant('sidebar-expanded', ({ modifySelectors, separator }) => {
         modifySelectors(({ className }) => 
@@ -143,4 +139,4 @@ export default  {
       });
     }),
   ],
-};
+}
